@@ -5,4 +5,13 @@
 		parameterType="int">
 		SELECT * FROM `order` WHERE `order`.`id`=#{id}
 	</select>
+
+
+	<select id="findOrders" resultType="com.sly.demo100.model.Order">
+		SELECT * FROM `order` WHERE `order`.`id` in
+		<foreach collection="list" item="id" separator="," open="("
+			close=")">
+			#{id}
+		</foreach>
+	</select>
 </mapper>
