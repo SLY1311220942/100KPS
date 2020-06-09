@@ -79,6 +79,7 @@ public class OrderService2Impl implements OrderService2 {
 				List<Request> requests = new ArrayList<>();
 				for (int i = 0; i < size; i++) {
 					Request request = queue.poll();
+					
 					// 组装参数
 					orderIds.add(request.orderId);
 					requests.add(request);
@@ -87,6 +88,7 @@ public class OrderService2Impl implements OrderService2 {
 				List<Order> orders = orderMapper.findOrders(orderIds);
 
 				for (Request request : requests) {
+					boolean flag = false;
 					for (Order order : orders) {
 						Integer orderId = request.orderId;
 						if (order.getId().equals(orderId)) {
@@ -94,10 +96,19 @@ public class OrderService2Impl implements OrderService2 {
 							result.put("status", 200);
 							result.put("message", "查询成功！");
 							result.put("order", order);
+							flag = true;
 							// 通知返回结果
 							request.future.complete(result);
 						}
 					}
+					if(!flag) {
+						// 没有结果
+						Map<String, Object> result = new HashMap<>(16);
+						result.put("status", 400);
+						result.put("message", "查询失败！");
+						request.future.complete(result);
+					}
+					
 				}
 			}
 		}, 0, 10, TimeUnit.MILLISECONDS);
