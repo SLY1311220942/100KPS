@@ -52,7 +52,7 @@ public class OrderController {
 			return result;
 		}
 	}
-	
+
 	/**
 	 * 根据id查询订单
 	 * 
@@ -72,6 +72,36 @@ public class OrderController {
 			LOGGER.error(ExceptionUtils.getStackTrace(e));
 			result.put("status", 400);
 			result.put("message", "查询订单错误！");
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping("/insertOrder1")
+	public Object insertOrder1() {
+		Map<String, Object> result = new HashMap<>(16);
+		try {
+			result = orderService.insertOrder();
+			return result;
+		} catch (Exception e) {
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
+			result.put("status", 400);
+			result.put("message", "保存订单错误！");
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping("/insertOrder2")
+	public Object insertOrder2() {
+		Map<String, Object> result = new HashMap<>(16);
+		try {
+			result = orderService2.insertOrder();
+			return result;
+		} catch (Exception e) {
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
+			result.put("status", 400);
+			result.put("message", "保存订单错误！");
 			return result;
 		}
 	}

@@ -10,4 +10,8 @@ public interface OrderMapper {
 
 	List<Order> findOrders(List<Integer> orderIds);
 
+	int insertOrders(List<Order> orders);
+
+	int insertOrder(Order order);
+
 }

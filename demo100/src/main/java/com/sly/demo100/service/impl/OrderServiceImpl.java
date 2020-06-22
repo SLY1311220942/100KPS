@@ -27,4 +27,17 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> insertOrder() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Order order = new Order();
+		order.setName("order:" + System.currentTimeMillis());
+		orderMapper.insertOrder(order);
+		result.put("status", 200);
+		result.put("message", "插入成功！");
+		
+		
+		return result;
+	}
+
 }

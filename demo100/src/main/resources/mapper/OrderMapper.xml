@@ -14,4 +14,16 @@
 			#{id}
 		</foreach>
 	</select>
+	
+	
+	<insert id="insertOrders">
+		INSERT INTO `order`(`name`) VALUES
+		<foreach collection="list" item="order" separator=",">
+			(#{order.name})
+		</foreach>
+	</insert>
+	
+	<insert id="insertOrder" parameterType="com.sly.demo100.model.Order">
+		INSERT INTO `order`(`name`) VALUES (#{name})
+	</insert>
 </mapper>
